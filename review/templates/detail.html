@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>{{review.post_title}}</h1>
+<div>
+Movie:{{review.movie_title}}
+<br>
+Author:{{review.author}}
+<br>
+Date:{{review.pub_date}}
+</div>
+<hr>
+
+{% if review.image %}
+<p><img src="{{review.image.url}}" alt="" width="60%" height=""></p>
+{% endif %}
+
+<p>{{review.body}}</p>
+<a href="{% url 'edit' review.id %}">Modify</a>
+<a href="{% url 'delete' review.id %}">Delete</a>
+
+{% endblock %}
