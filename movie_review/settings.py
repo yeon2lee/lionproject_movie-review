@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites', # allauth시 필요
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -41,6 +42,18 @@ INSTALLED_APPS = [
     # 앱 등록
     'review.apps.ReviewConfig',
     'user.apps.ReviewConfig',
+
+    # 부가기능
+    'imagekit',
+    'crispy_forms',
+
+    # allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    # provider 구글 (소셜 로그인 제공 업체)
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
