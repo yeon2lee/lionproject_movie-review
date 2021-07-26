@@ -3,6 +3,6 @@
 pip install django
 pip install pillow
 pip install pillow image-kit
-pip install django-crispy=forms
+pip install django-crispy-forms
 pip install django-allauth
 ```
