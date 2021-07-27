@@ -51,7 +51,7 @@ def delete(request, id):
 def search(request):
     search_review = Review.objects.all().order_by('-id')
 
-    query = request.POST.get('query', "") 
+    query = request.GET.get('query', "") 
 
     if query:
         search_review = search_review.filter(
