@@ -2,7 +2,7 @@
 ```python
 pip install django
 pip install pillow
-pip install pillow image-kit
+pip install pillow django-imagekit
 pip install django-crispy-forms
 pip install django-allauth
 ```
