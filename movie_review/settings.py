@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 
     # 앱 등록
     'review.apps.ReviewConfig',
-    'user.apps.ReviewConfig',
+    'user.apps.UserConfig',
 
     # 부가기능
     'imagekit',
