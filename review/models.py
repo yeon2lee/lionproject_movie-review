@@ -16,3 +16,9 @@ class Review(models.Model):
 
     def summary(self):
         return self.body[:30]
+
+class Comment(models.Model):
+    post_id = models.ForeignKey("Review", on_delete=models.CASCADE, db_column="post_id")
+    comment_id = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
+    author = models.CharField(max_length=10, default="")
+    body = models.TextField(default="")

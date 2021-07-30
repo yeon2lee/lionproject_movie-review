@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.core.paginator import Paginator
 from django.db.models import Q # 검색 기능을 위해 추가
-from .models import Review
-from .forms import ReviewForm
+from .models import Review, Comment
+from .forms import ReviewForm, CommentForm
 
 def home(request):
     reviews = Review.objects.all()
@@ -13,9 +13,35 @@ def home(request):
     posts = paginator.get_page(page)
     return render(request, 'home.html', {'reviews':reviews, 'posts':posts})
 
-def detail(request, id):
-    review = get_object_or_404(Review, pk = id)
-    return render(request,'detail.html',{'review':review})
+def detail(request, post_id): 
+    review = get_object_or_404(Review, pk = post_id) 
+    comments = Comment.objects.filter(post_id=post_id, comment_id__isnull=True)
+
+    re_comments = []
+    for comment in comments:
+        re_comments += list(Comment.objects.filter(comment_id=comment.id))
+
+    form = CommentForm()
+    return render(request, 'detail.html', {'review':review, 'comments':comments, 're_comments':re_comments, 'form':form})
+
+def create_comment(request, post_id):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid:
+            comment = form.save(commit=False)
+            comment.post_id = Review.objects.get(pk=post_id)
+            comment.save()
+    return redirect('/review/detail/' + str(post_id))
+
+def create_re_comment(request, post_id, comment_id):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid:
+            comment = form.save(commit=False)
+            comment.post_id = Review.objects.get(pk=post_id)
+            comment.comment_id = Comment.objects.get(pk=comment_id)
+            comment.save()
+    return redirect('/review/detail/' + str(post_id))
 
 def new(request):
     if request.method == 'POST':

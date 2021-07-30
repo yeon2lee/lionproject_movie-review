@@ -19,4 +19,33 @@ Date:{{review.pub_date}}
 <a href="{% url 'edit' review.id %}">Modify</a>
 <a href="{% url 'delete' review.id %}">Delete</a>
 
+{% for comment in comments %}
+<br>
+<hr>
+<p>작성자: {{comment.author}}</p>
+<p>내용: {{comment.body}}</p>
+<div style="margin-left: 80px;">
+    {% for re_comment in re_comments %}
+    {% if comment == re_comment.comment_id %}
+    <p>⤷ 작성자: {{re_comment.author}}</p>
+    <p> &nbsp; 내용: {{re_comment.body}}</p>
+    <br>
+    {% endif %}
+    {% endfor %}
+    <form action="{% url 're_comment' review.id comment.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">대댓글쓰기</button>
+    </form>
+</div>
+{% endfor %}
+
+<hr>
+<div style="margin-right: 200px">
+    <form action="{% url 'comment' review.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">댓글쓰기</button>
+    </form>
+</div>
 {% endblock %}
