@@ -5,6 +5,7 @@
         <h1>검색 결과가 없습니다</h1>
     {% else %}
         <h4>{{query}}에 대한 검색 결과입니다.</h4>
+        <hr>
         {% for review in search_review.all %}
         <div class="container"> 
             <div class="card">
