@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<style>
+    h1{
+        color: black;
+    }
+</style>
     {% if not search_review %}
         <h1>검색 결과가 없습니다</h1>
     {% else %}
@@ -16,7 +20,7 @@
                     {% if review.image %}
                         <img src="{{review.image.url}}" height="300"> 
                     {% endif %}
-                    <p><a href="{% url 'detail' review.id %}"> 자세히 보기</a></p> 
+                    <p><a href="{% url 'detail' review.id %}" class="btn btn-dark"> 자세히 보기</a></p> 
                 </div>
             </div>
         </div>
