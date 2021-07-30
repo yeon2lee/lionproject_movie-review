@@ -1,6 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<style>
+    h2{
+        color:white;
+        font-family: 'Do Hyeon', sans-serif;
+        text-align: right;
+        margin-top:30px;
+        margin-right: 25%;
+    }
+    input,
+        textarea {
+            font-family: 'Do Hyeon', sans-serif;
+            width: 50%;
+            border: none;
+            background-color: white;
+            border-radius: 20px;
+            padding: 10px;
+            margin: 0px 50px;
+            font-size: 18px;
+            color: black;
+        }
+</style>
 <h1>{{review.post_title}}</h1>
 <div>
 Movie:{{review.movie_title}}
@@ -16,14 +36,15 @@ Date:{{review.pub_date}}
 {% endif %}
 
 <p>{{review.body}}</p>
-<a href="{% url 'edit' review.id %}">Modify</a>
-<a href="{% url 'delete' review.id %}">Delete</a>
+<a href="{% url 'edit' review.id %}" class="btn btn-light">Modify</a>
+<a href="{% url 'delete' review.id %}" class="btn btn-light">Delete</a>
+
 
 {% for comment in comments %}
 <br>
 <hr>
-<p>작성자: {{comment.author}}</p>
-<p>내용: {{comment.body}}</p>
+<h2><p>작성자: {{comment.author}}</p>
+<p>내용: {{comment.body}}</p></h2>
 <div style="margin-left: 80px;">
     {% for re_comment in re_comments %}
     {% if comment == re_comment.comment_id %}
@@ -35,7 +56,7 @@ Date:{{review.pub_date}}
     <form action="{% url 're_comment' review.id comment.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{form.as_p}}
-        <button type="submit">대댓글쓰기</button>
+        <button type="submit" class="btn btn-light">대댓글쓰기</button>
     </form>
 </div>
 {% endfor %}
@@ -45,7 +66,7 @@ Date:{{review.pub_date}}
     <form action="{% url 'comment' review.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{form.as_p}}
-        <button type="submit">댓글쓰기</button>
+        <button type="submit" class="btn btn-light">댓글쓰기</button>
     </form>
 </div>
 {% endblock %}

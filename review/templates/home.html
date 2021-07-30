@@ -5,7 +5,33 @@
     Welcome! {{user.username}}!
     {% endif %}
     
+    <Style>
+        .footer {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            padding: 15px 0;
+            text-align: center;
+            color: white;
+            background: dark;
+        }
+        input,
+        textarea {
+            font-family: 'Do Hyeon', sans-serif;
+            width: 50%;
+            border: none;
+            background-color: white;
+            border-radius: 20px;
+            padding: 10px;
+            margin: 0px 50px;
+            font-size: 18px;
+            color: black;
+        }
+
+    </Style>
     <h1>MOVIE REVIEW</h1>
+    <hr>
     <div class="container">
     <br>
     {% for review in posts %}
@@ -16,21 +42,18 @@
          <p class = "image"><img src="{{review.image_thumbnail.url}}" height="200" width="400"></p>
          {% endif %}
          {{review.author}}
-         {{review.summary}} <a href = "{%url 'detail' review.id %}">...more</a>
+         {{review.summary}} <a href = "{%url 'detail' review.id %}" class="btn btn-light">...more</a>
         <br>
          </div>
     </div>
     {% endfor %}
 
     <!--검색창입니다. 디자인 하실 때 필요한 부분으로 옮겨주세요~~-->
-    <form action="{% url 'search' %}" method="get">
-        <input type="search" placeholder="Search" aria-label="Search" name="query" value="{{query}}">
-        <button type="submit">Search</button>
-    </form>
-
+    <!--검색창 base로 옮겼습니다 -->
+    <div class = "footer">
     {% if posts.has_previous %}
-    <a href="?page=1">First</a>
-    <a href="?page={{posts.previous_page_number}}">Previous</a>
+    <a href="?page=1" class="btn btn-light">First</a>
+    <a href="?page={{posts.previous_page_number}}" class="btn btn-light">Previous</a>
     {% endif %}
 
     <!-- 3of4  -->
@@ -40,8 +63,8 @@
 
     <!-- Next Last -->
     {% if posts.has_next %}
-    <a href="?page={{posts.next_page_number}}">Next</a>
-    <a href="?page={{posts.paginator.num_pages}}">Last</a>
+    <a href="?page={{posts.next_page_number}}" class="btn btn-light">Next</a>
+    <a href="?page={{posts.paginator.num_pages}}" class="btn btn-light">Last</a>
    
     {% endif %}
     </div>

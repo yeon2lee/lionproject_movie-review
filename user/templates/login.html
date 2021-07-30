@@ -4,7 +4,7 @@
 {% providers_media_js %}
 
 
-
+<body>
 {%if user.is_authenticated %}
 <div>
     <p>{{ user.username }} 님</p>
@@ -12,14 +12,16 @@
 </div>
 
 {%else%}
-<div>
-    <a href="/accounts/signup" class="a-auth">회원가입</a>
-    <a href="/accounts/login"  class="a-auth">로그인</a>
-    <a href="{% provider_login_url 'google' %}" >구글 로그인</a>
+
+<div id= "btn_group">
+    <h1>LOGIN PAGE</h1>
+    <hr>
+    <a href="/accounts/signup" class="btn btn-light" >회원가입</a>
+    <a href="/accounts/login/" class="btn btn-light" >로그인</a>
+    <a href="{% provider_login_url 'google' %}" class="btn btn-light">구글 로그인</a>
 </div>
 
-
 {%endif%}
-
+</body>
 
 {% endblock %}
