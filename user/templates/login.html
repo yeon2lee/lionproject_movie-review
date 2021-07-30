@@ -8,13 +8,13 @@
 {%if user.is_authenticated %}
 <div>
     <p>{{ user.username }} 님</p>
-    <a href="/accounts/logout" class="a-auth">로그아웃</a>
+    <a href="/accounts/logout/" class="a-auth">로그아웃</a>
 </div>
 
 {%else%}
 <div>
-    <a href="/accounts/signup" class="a-auth">회원가입</a>
-    <a href="/accounts/login"  class="a-auth">로그인</a>
+    <a href="/accounts/signup/" class="a-auth">회원가입</a>
+    <a href="/accounts/login/"  class="a-auth">로그인</a>
     <a href="{% provider_login_url 'google' %}" >구글 로그인</a>
 </div>
 
