@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!_v!4=zg3yk+^&qe1&9z_w=uq0jra2z#h^$^m^m7b+57on91e1'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-!_v!4=zg3yk+^&qe1&9z_w=uq0jra2z#h^$^m^m7b+57on91e1')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool( os.environ.get('DJANGO_DEBUG', True))
 
 ALLOWED_HOSTS = []
 
@@ -134,7 +135,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/' 
+MEDIA_URL = '/media/' # 이용자에게 사진을 보여줄 때, 보이는 url (media 파일의 url 설정)
+
+STATICFILES_DIRS = [ # 현재 static 파일들이 어디에 있는지
+    os.path.join(BASE_DIR, 'review', 'static')
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # static 파일을 어디에 모을건지
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # 이용자가 업로드한 파일을 모으는 곳
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -149,3 +158,15 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
+
+# AWS
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = 'lionproject-movie-review'
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_REGION_NAME = 'ap-northeast-2'
+
+# Heroku: Update database configuration from $DATABASE_URL.
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
