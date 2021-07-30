@@ -1,26 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-<style>
-    h1{
-        color: black;
-    }
-</style>
+
     {% if not search_review %}
-        <h1>검색 결과가 없습니다</h1>
+        <br>
+        <h1 style="color: white;">검색 결과가 없습니다.</h1>
     {% else %}
-        <h4>{{query}}에 대한 검색 결과입니다.</h4>
+        <br>
+        <h4 style="color: white;">'{{query}}'에 대한 검색 결과입니다.</h4>
         <hr>
         {% for review in search_review.all %}
         <div class="container"> 
             <div class="card">
                 <div class="card-body">
-                    <h1>{{ review.post_title }}</h1>
-                    <p>{{ review.movie_title }}</p>
-                    <p>{{ review.author }}</p>
+                    <h1 style="color: black;">{{ review.post_title }}</h1>
+                    <p style="color: black;">{{ review.movie_title }}</p>
+                    <p style="color: black;">{{ review.author }}</p>
                     {% if review.image %}
                         <img src="{{review.image.url}}" height="300"> 
                     {% endif %}
-                    <p><a href="{% url 'detail' review.id %}" class="btn btn-dark"> 자세히 보기</a></p> 
+                    <p><a href="{% url 'detail' review.id %}" class="btn btn-dark">자세히 보기</a></p>
                 </div>
             </div>
         </div>
